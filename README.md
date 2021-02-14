@@ -15,7 +15,7 @@ At a minimum, you will need the following installed and configured in order to r
 
 **Format**
 ```sh
-dotnet format --check --verbosity detailed
+dotnet format
 ```
 
 **Build**
