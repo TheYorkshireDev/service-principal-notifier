@@ -29,6 +29,9 @@ jobs:
     - name: Build project
       run: dotnet build -c Release --output ./${{ env.PUBLISH_DIRECTORY }}
 
+    - name: Test project
+      run: dotnet test
+
     - name: Lint C# code
       run: dotnet format --check --verbosity detailed
 
