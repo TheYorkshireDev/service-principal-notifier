@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AzureService\AzureService.csproj" />
+    <ProjectReference Include="..\..\Libraries\AzureService\AzureService.csproj" />
   </ItemGroup>
 
 </Project>

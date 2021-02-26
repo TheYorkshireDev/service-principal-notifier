@@ -2,6 +2,8 @@
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graph;
+using SPN.Function;
+using SPN.Function.Interfaces;
 using SPN.Libraries.AzureService;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace SPN
             var client = GetGraphApiClient().Result;
             builder.Services.AddSingleton<IGraphServiceClient>(client);
             builder.Services.AddSingleton<IGraphClient, GraphClient>();
+            builder.Services.AddSingleton<IFindExpiringServicePrincipalsExecutor, FindExpiringServicePrincipalsExecutor>();
         }
 
         private static async Task<GraphServiceClient> GetGraphApiClient()
