@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using Models;
 
 namespace SPN.Libraries.AzureService
 {
@@ -20,7 +21,7 @@ namespace SPN.Libraries.AzureService
             _graphServiceClient = graphServiceClient;
         }
 
-        public async Task<IList<Application>> GetAllApplicationsAsync()
+        public async Task<IList<ActiveDirectoryApplication>> GetAllApplicationsAsync()
         {
             // NOTE: We are specifically specifying the return items from the request
             // to reduce data bandwith
@@ -35,11 +36,26 @@ namespace SPN.Libraries.AzureService
                 .Top(999)
                 .GetAsync();
 
-            List<Application> applications = new List<Application>();
+            var applications = new List<ActiveDirectoryApplication>();
             var pageIterator = PageIterator<Application>
                 .CreatePageIterator(_graphServiceClient, applicationFirstPage, (a) =>
                 {
-                    applications.Add(a);
+                    var servicePrincipals = new List<Models.ServicePrincipal> { };
+                    foreach (var sp in a.PasswordCredentials)
+                    {
+                        servicePrincipals.Add(new Models.ServicePrincipal
+                        {
+                            DisplayName = sp.DisplayName,
+                            StartDateTime = sp.StartDateTime,
+                            EndDateTime = sp.EndDateTime
+                        });
+                    }
+                    applications.Add(new ActiveDirectoryApplication
+                    {
+                        Id = a.AppId,
+                        DisplayName = a.DisplayName,
+                        ServicePrincipals = servicePrincipals
+                    });
                     return true;
                 });
 

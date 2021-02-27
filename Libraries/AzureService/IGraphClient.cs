@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Graph;
+using Models;
 
 namespace SPN.Libraries.AzureService
 {
     public interface IGraphClient
     {
-        Task<IList<Application>> GetAllApplicationsAsync();
+        Task<IList<ActiveDirectoryApplication>> GetAllApplicationsAsync();
     }
 }
