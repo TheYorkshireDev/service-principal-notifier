@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SPN.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Models;
 
 namespace SPN.Libraries.AzureService
 {
